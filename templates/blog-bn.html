@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block atom %}
+  <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path="bn/atom.xml", trailing_slash=false) }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="title">
+  {{ section.title }}
+</h1>
+{{ macros::post_list_grouped(pages=section.pages) }}
+{% endblock %}

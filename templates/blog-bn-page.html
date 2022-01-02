@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block atom %}
+  <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path="bn/atom.xml", trailing_slash=false) }}">
+{% endblock %}
+
+{% block content %}
+<div class="post-header">
+  <h1 class="title">
+    {{ page.title }}
+  </h1>
+  <p class="date"><time datetime="{{ page.date }}">{{ page.date | date(format='%B %d, %Y') }}</time></p>
+  {{macros::tag_list(tags=page.taxonomies.tags, lang=page.lang)}}
+</div>
+
+{%if  page.extra.toc %}
+  {{macros::toc(headers=page.toc)}}
+{% endif %}
+
+<div class="post">
+{{ page.content | safe }}
+</div>
+
+{% endblock content %}

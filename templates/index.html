@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block atom %}
+  {% if section.lang == "en" %}
+    {% set atom_path = "atom.xml" %}
+  {% elif section.lang == "bn" %}
+    {% set atom_path = "bn/atom.xml" %}
+  {% endif %}
+  <link rel="alternate" type="application/atom+xml" title="Atom feed" href="{{ get_url(path=atom_path, trailing_slash=false) }}">
+{% endblock %}
+
+{% block content %}
+
+Home Page will go here.
+
+{% endblock content %}

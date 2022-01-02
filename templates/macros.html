@@ -1,0 +1,92 @@
+{% macro toc(headers, isFirstTime=true) %}
+
+{% if isFirstTime %}
+<div class="toc">
+  <details open>
+    <summary>Table of contents</summary>
+{% endif %}
+
+    <ul>
+      {% for heading in headers %}
+        <li>
+          <a href="#{{heading.id | safe }}">{{ heading.title | safe }}</a>
+            {% if heading.children %}
+              {{ self::toc(headers=heading.children, isFirstTime=false) }}
+            {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+{% if isFirstTime %}
+  </details>
+</div>
+{% endif %}
+
+{% endmacro toc %}
+
+
+
+{% macro post_list(pages) %}
+
+<ul>
+  {% for page in pages %}
+  <li>
+    <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+    {% if page.summary %}
+    <p>
+      {{ page.summary | safe | striptags }}
+      <a href="{{ page.permalink | safe }}#continue-reading">Continue Reading</a>
+    </p>
+    {% endif %}
+    <b>Tags</b>:
+    {% if page.taxonomies.tags %}
+      {% for tag in page.taxonomies.tags %}
+      <a href="{{ get_taxonomy_url(kind="tags", name=tag, lang=page.lang) }}">{{ tag }}</a>
+      {% endfor %}
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+{% endmacro post_list %}
+
+
+
+{% macro tag_list(tags, lang) %}
+
+  <div class="tags">
+    {% if tags %}
+      {% for tag in tags %}
+        <a href="{{ get_taxonomy_url(kind="tags", name=tag, lang=lang) }}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="tag-icon" viewBox="0 0 20 20" fill="#333">
+            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+          {{ tag }}
+        </a>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+{% endmacro tag_list %}
+
+{% macro post_list_grouped(pages) %}
+
+{% for year, pagesOfYear in pages | group_by(attribute="year") %}
+    <h2 class="post-year">{{ year }}</h2>
+
+    {% for month, pagesOfMonth in pagesOfYear | group_by(attribute="month") %}
+      <h3 class="post-month">{{ "0001-" ~ month ~ "-01" | date(format="%B")}}</h3>
+      <ul class="post-list">
+        {% for page in pagesOfMonth %}
+          <li><span class="post-day">{{ page.day }}</span> 
+            <div>
+              <a href="{{ page.permalink }}" class="post-title-in-list">{{ page.title }}</a>
+              {{ self::tag_list(tags=page.taxonomies.tags, lang=page.lang) }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+{% endfor %}
+
+{% endmacro post_list_grouped %}

@@ -1,0 +1,55 @@
+@use "variables";
+.title {
+  font-size: 3rem;
+}
+
+.post-year {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.post-month {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.post-list {
+  margin: 0;
+  padding: 0;
+  li {
+    padding-block: 20px;
+    padding-inline: 10px;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &:not(:last-child) {
+      border-bottom: 1px solid gray;
+    }
+
+    .tags {
+      margin-top: 8px; 
+      justify-content: flex-start;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &:hover {
+      background: variables.$light-color;
+    }
+
+    .post-day {
+      margin-right: 1rem;
+      text-align: right;
+      width: 1.4rem;
+      flex-shrink: 0;
+      font-size: 1.6rem;
+    }
+  }
+}

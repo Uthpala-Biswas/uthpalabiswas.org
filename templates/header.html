@@ -1,0 +1,46 @@
+<header class="primary-header">
+  <button
+    class="mobile-nav-toggle"
+    aria-controls="primary-navigation"
+    aria-expanded="false"
+    >
+    <div></div>
+    <span class="sr-only">Menu</span>
+  </button>
+  
+
+  <nav>
+    <ul data-visible="false" id="primary-navigation" class="primary-navigation flex">
+      <li class="active">
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/about-me">About Me</a>
+      </li>
+      <li class="parent-menu">
+        <button class="dropdown-btn" aria-controls="writing-submenu" aria-expanded="false" >
+          Writing
+          <span class="dropdown-triangle"></span>
+        </button>
+        <ul class="dropdown" id="writing-submenu">
+          <li><a href="/bn/blog">Bangla blog</a></li>
+          <li><a href="/blog/">English blog</a></li>
+        </ul>
+      </li>
+      <li class="parent-menu">
+        <button class="dropdown-btn" aria-controls="artworks-submenu" aria-expanded="false" >
+          Artworks
+          <span class="dropdown-triangle"></span>
+        </button>
+        <ul class="dropdown" id="artworks-submenu">
+          <li><a href="#">Paintings</a></li>
+          <li><a href="#">Origami</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Videos</a>
+      </li>
+    </ul>
+  </nav>
+
+</header>
